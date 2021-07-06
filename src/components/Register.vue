@@ -16,7 +16,12 @@ export default defineComponent({
     return { username: "", password: "" };
   },
   methods: {
-    onSubmit() {},
+    async onSubmit() {
+      this.$store.dispatch("registerUser", {
+        username: this.username,
+        password: this.password,
+      });
+    },
   },
 });
 </script>

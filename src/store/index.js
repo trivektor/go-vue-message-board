@@ -12,6 +12,10 @@ export default new Vuex.Store({
     currentUser: null,
     boards: [],
   },
+  getters: {
+    isLoggedIn: (state) => !!state.jwtToken,
+    currentUser: (state) => state.currentUser,
+  },
   mutations,
   actions,
   modules: {},

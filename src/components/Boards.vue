@@ -1,13 +1,11 @@
 <template>
-  <login-component />
+  <div>Boards</div>
 </template>
 
 <script>
 import { defineComponent } from "@vue/composition-api";
-import LoginComponent from "../components/Login.vue";
 
 export default defineComponent({
-  name: "LoginView",
-  components: { LoginComponent },
+  setup() {},
 });
 </script>

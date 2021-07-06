@@ -1,11 +1,11 @@
 package main
 
 import (
+	"go-vue-message-board/api"
 	"log"
 	"net/http"
 
-	"go-vue-message-board/controllers"
-
+	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -27,14 +27,18 @@ func (app *App) ConnectToDB() {
 
 func (app *App) InitRoutes() {
 	app.Router = mux.NewRouter()
-	app.Router.HandleFunc("/register", app.handleRequest(controllers.RegisterController)).Methods("POST")
+	app.Router.HandleFunc("/api/register", app.handleRequest(api.Register)).Methods("POST")
+	app.Router.HandleFunc("/api/login", app.handleRequest(api.Login)).Methods("POST")
 }
 
 func InitApp() {
 	app := new(App)
 	app.ConnectToDB()
 	app.InitRoutes()
-	http.ListenAndServe(":8081", app.Router)
+	header := handlers.AllowedHeaders([]string{"X-Requested-With", "Content-Type", "Authorization"})
+	methods := handlers.AllowedMethods([]string{"GET", "POST", "PUT", "HEAD", "OPTIONS"})
+	origins := handlers.AllowedOrigins([]string{"*"})
+	http.ListenAndServe(":8081", handlers.CORS(header, methods, origins)(app.Router))
 }
 
 // https://github.com/mingrammer/go-todo-rest-api-example/blob/master/app/app.go#L89

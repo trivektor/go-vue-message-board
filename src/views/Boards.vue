@@ -1,13 +1,14 @@
 <template>
-  <login-component />
+  <boards />
 </template>
 
 <script>
 import { defineComponent } from "@vue/composition-api";
-import LoginComponent from "../components/Login.vue";
+import Boards from "../components/Boards.vue";
 
 export default defineComponent({
-  name: "LoginView",
-  components: { LoginComponent },
+  components: {
+    Boards,
+  },
 });
 </script>

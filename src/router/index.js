@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import Login from "../views/Login.vue";
 import Register from "../views/Register.vue";
+import Boards from "../views/Boards.vue";
 import store from "../store";
 
 Vue.use(VueRouter);
@@ -22,6 +23,12 @@ const routes = [
     path: "/register",
     name: "Register",
     component: Register,
+  },
+  {
+    path: "/boards",
+    name: "Boards",
+    component: Boards,
+    meta: { requiresAuth: true },
   },
   // {
   //   path: "/about",
@@ -49,7 +56,6 @@ router.beforeEach((to, from, next) => {
       next();
     } else {
       store.dispatch("logout");
-
       next({ path: "/login" });
     }
   } else {
